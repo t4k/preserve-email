@@ -30,7 +30,7 @@ jobs:
       # 4. Create a source .zip file containing only the necessary add-on files.
       #    This is for users who want to inspect the source code for this release.
       - name: Package add-on source
-        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/
+        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/ web-ext-config.js
 
       # 5. Sign the add-on using Thunderbird's Add-on servers.
       #    It uses the API keys stored as GitHub secrets.
@@ -38,12 +38,10 @@ jobs:
       #    web-ext v8+ automatically detects the correct API endpoint for Thunderbird.
       - name: Sign add-on
         run: >
-          web-ext sign
-          --verbose
-          --amo-base-url https://addons.thunderbird.net/api/v5
-          --api-key ${{ secrets.WEB_EXT_API_KEY }}
-          --api-secret ${{ secrets.WEB_EXT_API_SECRET }}
-          --channel=listed
+          web-ext sign --verbose
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
 
       # 6. Create a GitHub Release and attach the signed .xpi and source.zip files.
       #    This makes it easy to download the final, installable file.
