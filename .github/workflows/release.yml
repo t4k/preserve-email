@@ -1,0 +1,55 @@
+# This workflow creates a signed .xpi file for Thunderbird and attaches it to a GitHub Release.
+# It is triggered automatically whenever a new tag starting with 'v' (e.g., v1.0.0) is pushed.
+
+name: Create Thunderbird Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Runs on tags like v1.0.0, v1.2.3, etc.
+
+jobs:
+  build-and-sign:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository's code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js, which is needed to run web-ext
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install web-ext, the command-line tool for managing WebExtensions
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      # 4. Create a source .zip file containing only the necessary add-on files
+      #    This excludes development files, .git directory, etc.
+      - name: Package add-on source
+        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE
+
+      # 5. Sign the add-on using Mozilla's servers.
+      #    It uses the API keys stored as GitHub secrets.
+      #    The --channel=listed flag is for public releases on ATN.
+      - name: Sign add-on
+        run: >
+          web-ext sign
+          --source-dir .
+          --api-key ${{ secrets.WEB_EXT_API_KEY }}
+          --api-secret ${{ secrets.WEB_EXT_API_SECRET }}
+          --channel=listed
+
+      # 6. Create a GitHub Release and upload the signed .xpi file as an artifact.
+      #    This makes it easy to download the final, installable file.
+      - name: Create GitHub Release and Upload Artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            web-ext-artifacts/*.xpi
+            source.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

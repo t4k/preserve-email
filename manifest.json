@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "Preserve Email",
+  "version": "1.0.0",
+  "description": "Preserves selected messages by embedding remote content (like images) using the MHTML format.",
+  "author": "Tommy Keswick",
+
+  "icons": {
+    "48": "icons/preserver-icon.svg"
+  },
+
+  "permissions": [
+    "messagesRead",
+    "downloads",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "notifications"
+  ],
+  
+  "background": {
+    "scripts": ["background/background.js"]
+  },
+  
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "preserver@eml.tools",
+      "strict_min_version": "91.0"
+    }
+  },
+  
+  "commands": {
+    "preserve-email": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Preserve selected message as a self-contained .eml file."
+    }
+  }
+}
