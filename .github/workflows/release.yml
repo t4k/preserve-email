@@ -27,29 +27,31 @@ jobs:
       - name: Install web-ext
         run: npm install --global web-ext
 
-      # 4. Create the build artifacts to be signed.
-      #    Assumes manifest.json and source are in root
-      - name: Build add-on source
-        run: web-ext build
+      # 4. Create a source .zip file containing only the necessary add-on files.
+      #    This is for users who want to inspect the source code for this release.
+      - name: Package add-on source
+        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/
 
-      # 5. Sign the add-on using Mozilla's servers.
+      # 5. Sign the add-on using Thunderbird's Add-on servers.
       #    It uses the API keys stored as GitHub secrets.
-      #    The --channel listed flag is for public releases on ATN.
+      #    The --channel=listed flag is for public releases on ATN.
+      #    web-ext v8+ automatically detects the correct API endpoint for Thunderbird.
       - name: Sign add-on
         run: >
           web-ext sign
           --api-key ${{ secrets.ATN_JWT_ISSUER }}
           --api-secret ${{ secrets.ATN_JWT_SECRET }}
-          --amo-base-url https://addons.thunderbird.net
-          --channel listed
+          --channel=listed
 
-      # 6. Create a GitHub Release and attach the signed .xpi file.
+      # 6. Create a GitHub Release and attach the signed .xpi and source.zip files.
       #    This makes it easy to download the final, installable file.
-      - name: Create GitHub Release and attach XPI
+      - name: Create GitHub Release and Upload Artifacts
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: web-ext-artifacts/*.xpi
+          files: |
+            web-ext-artifacts/*.xpi
+            source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
