@@ -30,7 +30,7 @@ jobs:
       # 4. Create a source .zip file containing only the necessary add-on files
       #    This excludes development files, .git directory, etc.
       - name: Package add-on source
-        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE
+        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json
 
       # 5. Sign the add-on using Mozilla's servers.
       #    It uses the API keys stored as GitHub secrets.

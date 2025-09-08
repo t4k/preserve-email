@@ -13,7 +13,7 @@ A Thunderbird add-on that creates high-fidelity, self-contained copies of messag
 
 ## Installation
 
-1.  Download the latest `.xpi` file from the Releases page.
+1.  Download the latest `.xpi` file from the Releases page on GitHub.
 2.  In Thunderbird, go to `Tools > Add-ons and Themes`.
 3.  Click the gear icon and select "Install Add-on From File...".
 4.  Select the downloaded `.xpi` file.
@@ -34,7 +34,7 @@ A Thunderbird add-on that creates high-fidelity, self-contained copies of messag
 The add-on creates emails in a hybrid MHTML (MIME HTML) format to ensure the best rendering across different email clients:
 
 - **Multipart/Related Structure**: Uses MIME multipart/related to combine HTML and resources
-- **Content-ID References**: Remote URLs are replaced with `cid:` references to embedded content
+- **Content-ID References**: Remote URLs for images and stylesheets are replaced with `cid:` references to embedded content
 -**Data URI Embedding**: Web fonts (e.g., from Google Fonts) are embedded directly into the CSS as `data:` URIs. This method is more robustly supported by email clients than `cid:` links within stylesheets.
 - **Base64 Encoding**: All embedded resources are Base64-encoded for transport
 - **Preservation Headers**: Custom headers track the preservation method and tool version
@@ -52,39 +52,13 @@ The add-on can embed:
 - **Invalid HTML**: Gracefully handles malformed HTML content.
 - **Large Resources**: No size limits (browser/Thunderbird limits apply).
 
-## Development
-
-### Prerequisites
-
-- Thunderbird 91.0 or later
-- Basic knowledge of JavaScript and MIME/email formats
-
-### Key Files
-
-- **`manifest.json`**: Add-on configuration, permissions, and keyboard shortcut
-- **`background/background.js`**: Main preservation logic and MHTML generation
-
-### Testing
-
-1. Make your changes to the source files
-2. Reload the add-on in Thunderbird:
-   - Go to `Tools` → `Add-ons and Themes`
-   - Find your add-on and click the reload button
-3. Test with various emails containing remote resources
-
-### Debugging
-
-- Open Thunderbird's Developer Tools (`Tools` → `Developer Tools`)
-- Check the Console tab for JavaScript errors and processing logs
-- The background script logs detailed information about the preservation process
-
 ## License
 
-This project is licensed under the Mozilla Public License 2.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Mozilla Public License 2.0. See the LICENSE file for details.
 
 ## Acknowledgments
 
-This tool was developed with the assistance of AI models, including Google's Gemini and models from Anthropic and OpenAI, which were instrumental in debugging, code generation, and refining the implementation.
+This tool was developed with the assistance of AI models, including Google's Gemini and models from OpenAI, which were instrumental in debugging, code generation, and refining the implementation.
 
 ## Version History
 

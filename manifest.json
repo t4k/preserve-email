@@ -1,14 +1,12 @@
 {
   "manifest_version": 2,
   "name": "Preserve Email",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Preserves selected messages by embedding remote content (like images) using the MHTML format.",
   "author": "Tommy Keswick",
-
   "icons": {
     "48": "icons/preserver-icon.svg"
   },
-
   "permissions": [
     "messagesRead",
     "downloads",
@@ -18,18 +16,18 @@
     "<all_urls>",
     "notifications"
   ],
-  
   "background": {
-    "scripts": ["background/background.js"]
+    "scripts": [
+      "background/background.js"
+    ]
   },
-  
   "browser_specific_settings": {
     "gecko": {
       "id": "preserver@eml.tools",
-      "strict_min_version": "91.0"
+      "strict_min_version": "91.0",
+      "update_url": "https://raw.githubusercontent.com/t4k/preserve-email/main/updates.json"
     }
   },
-  
   "commands": {
     "preserve-email": {
       "suggested_key": {
