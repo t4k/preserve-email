@@ -40,7 +40,7 @@ jobs:
         run: >
           web-ext sign
           --verbose
-          --amo-base-url https://addons.thunderbird.net/api/v5/
+          --amo-base-url https://addons.thunderbird.net/api/v5
           --api-key ${{ secrets.WEB_EXT_API_KEY }}
           --api-secret ${{ secrets.WEB_EXT_API_SECRET }}
           --channel=listed

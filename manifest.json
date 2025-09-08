@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Preserve Email",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Preserves selected messages by embedding remote content (like images) using the MHTML format.",
   "author": "Tommy Keswick",
   "icons": {
