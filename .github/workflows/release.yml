@@ -30,7 +30,7 @@ jobs:
       # 4. Create the build artifacts to be signed.
       #    Assumes manifest.json and source are in root
       - name: Build add-on source
-        run: web-ext build --source-dir=. --artifacts-dir=build-artifacts
+        run: web-ext build
 
       # 5. Sign the add-on using Mozilla's servers.
       #    It uses the API keys stored as GitHub secrets.
@@ -41,8 +41,6 @@ jobs:
           --api-key ${{ secrets.ATN_JWT_ISSUER }}
           --api-secret ${{ secrets.ATN_JWT_SECRET }}
           --amo-base-url https://addons.thunderbird.net
-          --source-dir=build-artifacts
-          --artifacts-dir=signed-artifacts
           --channel listed
 
       # 6. Create a GitHub Release and attach the signed .xpi file.
@@ -52,6 +50,6 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: signed-artifacts/*.xpi
+          files: web-ext-artifacts/*.xpi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
