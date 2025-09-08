@@ -30,7 +30,7 @@ jobs:
       # 4. Create a source .zip file containing only the necessary add-on files.
       #    This is for users who want to inspect the source code for this release.
       - name: Package add-on source
-        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/ web-ext-config.js
+        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/ web-ext-config.cjs
 
       # 5. Sign the add-on using Thunderbird's Add-on servers.
       #    It uses the API keys stored as GitHub secrets.
