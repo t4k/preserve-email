@@ -3,6 +3,10 @@
     "preserver@eml.tools": {
       "updates": [
         {
+          "version": "0.1.4",
+          "update_link": "https://github.com/t4k/preserve-email/releases/download/v0.1.4/preserve_email-0.1.4-tb.xpi"
+        },
+        {
           "version": "0.1.3",
           "update_link": "https://github.com/t4k/preserve-email/releases/download/v0.1.3/preserve_email-0.1.3-tb.xpi"
         },
