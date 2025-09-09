@@ -9,8 +9,11 @@ on:
       - 'v*.*.*' # Runs on tags like v1.0.0, v1.2.3, etc.
 
 jobs:
-  build-and-sign:
+  build-release:
     runs-on: ubuntu-latest
+    permissions:
+      # This permission is required for softprops/action-gh-release to create a release.
+      contents: write
 
     steps:
       # 1. Check out the repository's code

@@ -7,7 +7,7 @@ This script automates the process of updating version numbers for a new release.
 1.  From the **root of the project directory**, run the script with the new version number as an argument. For example, to release version `1.0.1`:
 
     ```bash
-    python3 .github/scripts/release.py 1.0.1
+    python3 .github/scripts/version.py 1.0.1
     ```
 
     This will automatically update `manifest.json` and `updates.json`.

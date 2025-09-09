@@ -5,7 +5,7 @@ from pathlib import Path
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 .github/scripts/release.py <new_version>")
+        print("Usage: python3 .github/scripts/version.py <new_version>")
         sys.exit(1)
 
     new_version = sys.argv[1]
