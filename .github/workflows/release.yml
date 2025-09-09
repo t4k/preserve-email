@@ -30,27 +30,18 @@ jobs:
       - name: Install web-ext
         run: npm install --global web-ext
 
-      # 4. Create a source .zip file containing only the necessary add-on files.
-      #    This is for users who want to inspect the source code for this release.
-      - name: Package add-on source
-        run: zip -r source.zip manifest.json background/ icons/ README.md LICENSE updates.json .github/
-
-      # 5. Build the add-on into an unsigned .xpi file.
+      # 4. Build the add-on into an unsigned .xpi file.
       - name: Build XPI
-        run: |
-          web-ext build --verbose
-          echo "🐞 DEBUG"
-          ls **/*
+        run: web-ext build --verbose --filename "preserve_email-{version}-tb.xpi"
 
-      # 6. Create a GitHub Release and attach the built .xpi and source.zip files.
+      # 5. Create a GitHub Release and attach the built .xpi file.
+      #    GitHub automatically creates source code archives for each release.
       #    This makes it easy to download the final, installable file.
       - name: Create GitHub Release and Upload Artifacts
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          files: |
-            web-ext-artifacts/*.xpi
-            source.zip
+          files: web-ext-artifacts/*.xpi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
