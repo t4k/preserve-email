@@ -37,7 +37,10 @@ jobs:
 
       # 5. Build the add-on into an unsigned .xpi file.
       - name: Build XPI
-        run: web-ext build --verbose
+        run: |
+          web-ext build --verbose
+          echo "🐞 DEBUG"
+          ls **/*
 
       # 6. Create a GitHub Release and attach the built .xpi and source.zip files.
       #    This makes it easy to download the final, installable file.
